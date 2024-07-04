@@ -2,6 +2,7 @@ import { atom, useAtom } from "jotai";
 import LanguageSelector, { languageAtom } from "./LanguagesSelector";
 import { useState, useEffect } from "react";
 import { cityAtom } from "./WeatherCard";
+import Pagination from "./Pagination";
 
 export const errorMessageAtom = atom(null);
 export const citiesAtom = atom([]);
@@ -13,6 +14,13 @@ export default function CitiesSearch() {
   const [city, setCity] = useAtom(cityAtom);
   const [errorMessage, setErrorMessage] = useAtom(errorMessageAtom);
   const [userInput, setUserInput] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [citiesPerPage, setCitiesPerPage] = useState(3);
+
+  const lastCityIndex = currentPage * citiesPerPage;
+  const firstCityIndex = lastCityIndex - citiesPerPage;
+  console.log(cities.length);
+  const currentCities = cities.slice(firstCityIndex, lastCityIndex);
 
   useEffect(() => {
     async function setUserNavigation() {
@@ -74,6 +82,7 @@ export default function CitiesSearch() {
 
   function searchCitiesByName(name) {
     const castedName = String(name);
+    setCurrentPage(1);
 
     if (!castedName) {
       console.error("Error: Unable to process city name.");
@@ -149,13 +158,13 @@ export default function CitiesSearch() {
             </div>
           )}
         </div>
-        {cities.length > 0 && (
+        {currentCities.length > 0 && (
           <div id="cities">
             <div className="text-light mb-1">
               Cities called {userInput} (click to select):
             </div>
             <ul className="dropdown-menu d-flex flex-column position-relative w-100">
-              {cities.map((city) => {
+              {currentCities.map((city) => {
                 return (
                   <li key={`${city.lat}_${city.name}`}>
                     <button
@@ -170,6 +179,13 @@ export default function CitiesSearch() {
                 );
               })}
             </ul>
+            <br />
+            <Pagination
+              totalCities={cities.length}
+              citiesPerPage={citiesPerPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         )}
       </div>
