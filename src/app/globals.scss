@@ -1,0 +1,81 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  //
+  background-size: cover;
+  height: 100vh;
+  background-color: #28294a;
+
+  background-image: url("/background.png");
+  background-repeat: no-repeat;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    0,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(27, 27, 83, 1) 35%,
+    rgba(24, 50, 104, 0.3) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.card-transparent {
+  padding-bottom: 30px;
+  height: 120px;
+}
+
+select {
+  width: fit-content !important;
+  border-color: #bd8ce5 !important;
+  background: transparent !important;
+  color: white !important;
+}
+
+.glass {
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+div:has(> div.search) {
+  padding-bottom: 60px !important;
+}
+
+.search {
+  background-color: rgb(2, 0, 36, 0.6);
+  border-radius: 20px;
+
+  form {
+    input {
+      background-color: transparent !important;
+      color: white !important;
+    }
+
+    input::placeholder {
+      color: white !important;
+    }
+
+    button {
+      color: white !important;
+      border-color: #bd8ce5 !important;
+    }
+    button:hover {
+      background-color: darken(#bd8ce5, 10%) !important;
+    }
+  }
+}
+
+div p {
+  margin: 0;
+}
