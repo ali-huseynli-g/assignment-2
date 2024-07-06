@@ -3,9 +3,11 @@ import LanguageSelector, { languageAtom } from "./LanguagesSelector";
 import { useState, useEffect } from "react";
 import { cityAtom } from "./WeatherCard";
 import Pagination from "./Pagination";
+import { Alert } from "react-bootstrap";
 
 export const errorMessageAtom = atom(null);
 export const citiesAtom = atom([]);
+export const recentlyViewedAtom = atom([]);
 
 export default function CitiesSearch() {
   const apiId = "4fe538ddedee0ec4bc4f3a07a694d493";
@@ -15,11 +17,11 @@ export default function CitiesSearch() {
   const [errorMessage, setErrorMessage] = useAtom(errorMessageAtom);
   const [userInput, setUserInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [citiesPerPage, setCitiesPerPage] = useState(3);
+  const citiesPerPage = 3;
+  const [recentlyViewed, setRecentlyViewed] = useAtom(recentlyViewedAtom);
 
   const lastCityIndex = currentPage * citiesPerPage;
   const firstCityIndex = lastCityIndex - citiesPerPage;
-  console.log(cities.length);
   const currentCities = cities.slice(firstCityIndex, lastCityIndex);
 
   useEffect(() => {
@@ -45,12 +47,19 @@ export default function CitiesSearch() {
       );
       return;
     }
+    setErrorMessage(null);
 
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=${language}&units=metric&appid=${apiId}`
     )
       .then((res) => res.json())
       .then((data) => {
+        setRecentlyViewed(
+          !recentlyViewed.map((obj) => obj.id).includes(data.id)
+            ? [...recentlyViewed, data]
+            : recentlyViewed
+        );
+
         setCity(() => ({
           sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString(
             "en-US"
@@ -99,6 +108,8 @@ export default function CitiesSearch() {
           setErrorMessage("Error: Unable to find city. Please try again.");
           return;
         }
+        setErrorMessage(null);
+
         setCities(data);
       })
       .catch((err) => {
@@ -149,13 +160,12 @@ export default function CitiesSearch() {
             </button>
           </form>
           {errorMessage && (
-            <div
-              id="errorMessage"
-              className="alert alert-danger mt-2"
-              role="alert"
-            >
-              {errorMessage}
-            </div>
+            <>
+              <br />
+              <Alert id={"errorMessage"} variant={"danger"}>
+                {errorMessage}
+              </Alert>
+            </>
           )}
         </div>
         {currentCities.length > 0 && (

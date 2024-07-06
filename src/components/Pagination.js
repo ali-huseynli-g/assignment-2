@@ -6,7 +6,6 @@ export default function CitiesPagination({
   currentPage,
   setCurrentPage,
 }) {
-  console.log("total cities: ", totalCities);
   let items = [];
   for (
     let number = 1;

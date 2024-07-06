@@ -1,7 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  //
   background-size: cover;
   height: 100vh;
   background-color: #28294a;
@@ -10,7 +9,7 @@ body {
   background-repeat: no-repeat;
 }
 
-footer {
+nav {
   position: fixed;
   left: 0;
   right: 0;
@@ -18,13 +17,35 @@ footer {
   padding: 10px;
   background: rgb(2, 0, 36);
   background: linear-gradient(
-    0,
+    180deg,
     rgba(2, 0, 36, 1) 0%,
     rgba(27, 27, 83, 1) 35%,
     rgba(24, 50, 104, 0.3) 100%,
     rgba(0, 212, 255, 1) 100%
   );
+  a {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  }
+  div .dropdown-menu a {
+    color: var(--bs-dropdown-link-color) !important;
+  }
 }
+// footer {
+//   position: fixed;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   padding: 10px;
+//   background: rgb(2, 0, 36);
+//   background: linear-gradient(
+//     0,
+//     rgba(2, 0, 36, 1) 0%,
+//     rgba(27, 27, 83, 1) 35%,
+//     rgba(24, 50, 104, 0.3) 100%,
+//     rgba(0, 212, 255, 1) 100%
+//   );
+// }
 
 .card-transparent {
   padding-bottom: 30px;

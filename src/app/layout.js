@@ -1,3 +1,14 @@
+/*********************************************************************************
+ * WEB422 – Assignment 2
+ * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+ * No part of this assignment has been copied manually or electronically from any other source
+ * (including web sites) or distributed to other students.
+ *
+ * Name: Ali Huseynli Student ID: 124694233 Date: 07/05/2024
+ *
+ *
+ ********************************************************************************/
+
 import { Inter } from "next/font/google";
 
 import "./globals.scss";
@@ -16,13 +27,6 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <NavBarCustom />
         {children}
-        <footer className="">
-          <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1 text-light">
-              HUSE | Weather
-            </span>
-          </div>
-        </footer>
       </body>
     </html>
   );
