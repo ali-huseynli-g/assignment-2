@@ -22,8 +22,8 @@ const apiId = "4fe538ddedee0ec4bc4f3a07a694d493";
 export default function Home() {
   const [city, setCity] = useAtom(cityAtom);
   const [language] = useAtom(languageAtom);
-
   const [errorMessage, setErrorMessage] = useAtom(errorMessageAtom);
+
   useEffect(() => {
     async function setUserNavigation() {
       const position = await new Promise((res, rej) => {
