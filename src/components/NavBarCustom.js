@@ -22,7 +22,7 @@ export default function NavBarCustom() {
                 recentlyViewed.map((city, index) => (
                   <NavDropdown.Item
                     as={Link}
-                    href={`/city/${city.id}`}
+                    href={`/cities/${city.id}`}
                     key={index}
                   >
                     {city.name}, {city.sys.country}
