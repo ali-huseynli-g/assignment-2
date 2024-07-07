@@ -11,7 +11,6 @@
 "use client";
 
 import { useAtom } from "jotai";
-
 import WeatherCard, { cityAtom } from "@/components/WeatherCard";
 import { languageAtom } from "@/components/LanguagesSelector";
 import { useEffect } from "react";
@@ -20,10 +19,10 @@ import CitiesSearch, { errorMessageAtom } from "@/components/CitiesSearch";
 const apiId = "4fe538ddedee0ec4bc4f3a07a694d493";
 
 export default function Home() {
-  const [city, setCity] = useAtom(cityAtom);
+  const [, setCity] = useAtom(cityAtom);
   const [language] = useAtom(languageAtom);
 
-  const [errorMessage, setErrorMessage] = useAtom(errorMessageAtom);
+  const [, setErrorMessage] = useAtom(errorMessageAtom);
   useEffect(() => {
     async function setUserNavigation() {
       const position = await new Promise((res, rej) => {

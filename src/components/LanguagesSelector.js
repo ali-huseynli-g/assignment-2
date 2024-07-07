@@ -2,8 +2,9 @@ import { atom, useAtom } from "jotai";
 
 export const languageAtom = atom("en");
 
-const LanguageSelector = ({ onChange }) => {
+const LanguageSelector = () => {
   const [language, setLanguage] = useAtom(languageAtom);
+
   const handleSelect = (e) => {
     setLanguage(e);
   };

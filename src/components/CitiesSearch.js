@@ -1,13 +1,14 @@
+"use client";
+
 import { atom, useAtom } from "jotai";
 import LanguageSelector, { languageAtom } from "./LanguagesSelector";
 import { useState, useEffect } from "react";
 import { cityAtom } from "./WeatherCard";
 import Pagination from "./Pagination";
 import { Alert } from "react-bootstrap";
-// import { mockCitiesList, mockCityData } from "@/mocks/cities";
 
-export const errorMessageAtom = atom(null);
 export const citiesAtom = atom([]);
+export const errorMessageAtom = atom(null);
 export const recentlyViewedAtom = atom({});
 
 export default function CitiesSearch() {
@@ -48,31 +49,9 @@ export default function CitiesSearch() {
       );
       return;
     }
+
     setErrorMessage(null);
-    // setRecentlyViewed([mockCityData]);
-    // console.log("View: ", recentlyViewed);
-    // setCity(() => ({
-    //   sunrise: new Date(mockCityData.sys.sunrise * 1000).toLocaleTimeString(
-    //     "en-US"
-    //   ),
-    //   sunset: new Date(mockCityData.sys.sunset * 1000).toLocaleTimeString(
-    //     "en-US"
-    //   ),
-    //   name: mockCityData.name,
-    //   country: mockCityData.sys.country,
-    //   weatherDescription: mockCityData.weather[0].description,
-    //   weatherIcon: mockCityData.weather[0].icon,
-    //   clouds: mockCityData.clouds.all,
-    //   humidity: mockCityData.main.humidity,
-    //   pressure: mockCityData.main.pressure,
-    //   temp: Math.round(mockCityData.main.temp),
-    //   feels_like: Math.round(mockCityData.main.feels_like),
-    //   temp_max: Math.round(mockCityData.main.temp_max),
-    //   temp_min: Math.round(mockCityData.main.temp_min),
-    //   speed: Math.round(mockCityData.wind.speed * 3.6),
-    //   visibility: Math.round(mockCityData.visibility / 1000),
-    //   flag: `http://openweathermap.org/images/flags/${mockCityData.sys.country.toLowerCase()}.png`,
-    // }));
+
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=${language}&units=metric&appid=${apiId}`
     )
@@ -111,13 +90,13 @@ export default function CitiesSearch() {
 
   function searchCitiesByName(name) {
     const castedName = String(name);
+
     setCurrentPage(1);
 
     if (!castedName) {
       console.error("Error: Unable to process city name.");
       return;
     }
-    // setCities(mockCitiesList);
 
     fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${castedName}&limit=5&appid=${apiId}`
@@ -129,6 +108,7 @@ export default function CitiesSearch() {
           setErrorMessage("Error: Unable to find city. Please try again.");
           return;
         }
+
         setErrorMessage(null);
 
         setCities(data);
@@ -152,7 +132,6 @@ export default function CitiesSearch() {
               if (event.key === "Enter") {
                 event.preventDefault();
                 searchCitiesByName(userInput);
-                setUserInput("");
               }
             }}
           >
@@ -174,7 +153,6 @@ export default function CitiesSearch() {
               type="button"
               onClick={() => {
                 searchCitiesByName(userInput);
-                setUserInput("");
               }}
             >
               Search
