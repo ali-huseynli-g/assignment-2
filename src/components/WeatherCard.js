@@ -29,7 +29,7 @@ export default function WeatherCard() {
           <div className="text-dark py-4 px-5">
             <h4 className="mb-0">
               {city.name}, {city.country}
-              <img src={city.flag} width="20px" />
+              <img src={city.flag} width="20px" className="ms-1" />
             </h4>
 
             <p className="display-2 my-3">
@@ -42,8 +42,9 @@ export default function WeatherCard() {
           </div>
           <div className="pe-3 d-flex flex-column">
             <img src={`icons/${city.weatherIcon}.png`} width="130px" />
-            <h5 className="px-2 text-center">
-              H: {city.temp_max}° L: {city.temp_min}°
+            <h5 className="px-2 text-center d-grid">
+              <span>H: {city.temp_max}°</span>
+              <span>L: {city.temp_min}°</span>
             </h5>
           </div>
         </div>

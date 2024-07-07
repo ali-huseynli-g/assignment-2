@@ -12,14 +12,18 @@ export default function NavBarCustom() {
   return (
     <Navbar expand="lg">
       <div className="container-fluid">
-        <Navbar.Brand href="/">HUSE | Weather</Navbar.Brand>
+        <Navbar.Brand as={Link} href="/">
+          HUSE | Weather
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link as={Link} href="/">
+              Home
+            </Nav.Link>
             <NavDropdown title="Visited Cities" id="basic-nav-dropdown">
-              {recentlyViewed.length > 0 ? (
-                recentlyViewed.map((city, index) => (
+              {Object.keys(recentlyViewed).length > 0 ? (
+                Object.values(recentlyViewed).map((city, index) => (
                   <NavDropdown.Item
                     as={Link}
                     href={`/cities/${city.id}`}
@@ -29,7 +33,7 @@ export default function NavBarCustom() {
                   </NavDropdown.Item>
                 ))
               ) : (
-                <NavDropdown.Item>...</NavDropdown.Item>
+                <span className="p-2">No history</span>
               )}
             </NavDropdown>
           </Nav>

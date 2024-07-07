@@ -8,18 +8,18 @@ import { Alert } from "react-bootstrap";
 
 export const errorMessageAtom = atom(null);
 export const citiesAtom = atom([]);
-export const recentlyViewedAtom = atom([]);
+export const recentlyViewedAtom = atom({});
 
 export default function CitiesSearch() {
   const apiId = "4fe538ddedee0ec4bc4f3a07a694d493";
   const [cities, setCities] = useAtom(citiesAtom);
   const [language] = useAtom(languageAtom);
-  const [city, setCity] = useAtom(cityAtom);
+  const [, setCity] = useAtom(cityAtom);
   const [errorMessage, setErrorMessage] = useAtom(errorMessageAtom);
   const [userInput, setUserInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const citiesPerPage = 3;
   const [recentlyViewed, setRecentlyViewed] = useAtom(recentlyViewedAtom);
+  const citiesPerPage = 3;
 
   const lastCityIndex = currentPage * citiesPerPage;
   const firstCityIndex = lastCityIndex - citiesPerPage;
@@ -78,11 +78,7 @@ export default function CitiesSearch() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setRecentlyViewed(
-          !recentlyViewed.map((obj) => obj.id).includes(data.id)
-            ? [...recentlyViewed, data]
-            : recentlyViewed
-        );
+        setRecentlyViewed(() => ({ ...recentlyViewed, [data.id]: data }));
 
         setCity(() => ({
           sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString(
@@ -154,9 +150,9 @@ export default function CitiesSearch() {
             role="search"
             onKeyDown={(event) => {
               if (event.key === "Enter") {
-                alert(
-                  "You have pressed Enter key, use Search button instead please."
-                );
+                event.preventDefault();
+                searchCitiesByName(userInput);
+                setUserInput("");
               }
             }}
           >
